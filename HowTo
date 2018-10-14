@@ -1,0 +1,8 @@
+deploy to heroku.
+
+1. Ensure that process.env.PORT is used for PORT
+2. Ensure that "engines" is dded to package.json with the "node" version specified
+3. Run the following commands: 
+    heroku create [insert custom name here or allow heroku to randomly create app subdomain name]
+    git push heroku master
+4. Get the app URL that was created by heroku after running last command

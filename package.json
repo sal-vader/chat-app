@@ -4,7 +4,12 @@
   "description": "Chat app via socket.io",
   "main": "app.js",
   "scripts": {
+    "start": "node server/app.js",
+    "auto-start": "nodemon server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "8.11.3"
   },
   "repository": {
     "type": "git",
@@ -15,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/sal-vader/chat-app/issues"
   },
-  "homepage": "https://github.com/sal-vader/chat-app#readme"
+  "homepage": "https://github.com/sal-vader/chat-app#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "socket.io": "^2.1.1"
+  }
 }
