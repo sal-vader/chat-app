@@ -9,9 +9,19 @@ socket.on('disconnect', function () {
 });
 
 socket.on('newMessage', function (message) {
-    console.log(message);
+    let newMessage = $('<li></li>');
+    newMessage.text(`${message.from}: ${message.text}`);
+    $('#messages').append(newMessage);
 });
 
-socket.on('newUser', function (message) {
-    console.log(message);
+$('#message-form').on('submit', function (e) {
+    // Prevents the default behavior (i.e. full page refresh on form submit)
+    e.preventDefault();
+
+    socket.emit('createMessage', {
+        from: 'User',
+        text: $('#message').val()
+    }, function () {
+
+    });
 });

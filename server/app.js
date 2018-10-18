@@ -16,11 +16,15 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
     console.log('New user connected');
 
-    socket.emit('newUser', generateMessage('Admin', 'Welcome to the chatroom'));
+    // socket.emit sends event only to original requestor
+    socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chatroom'));
 
-    socket.broadcast.emit('newUser', generateMessage('Admin', 'A new user has joined'));
+    // socket.broadcast.emit sends event to all, except original requestor
+    socket.broadcast.emit('newMessage', generateMessage('Admin', 'A new user has joined'));
 
     socket.on('createMessage', (message) => {
+        console.log(message);
+        // io.emit sends event to all
         io.emit('newMessage', generateMessage(message.from, message.text));
     });
 
