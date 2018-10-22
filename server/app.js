@@ -22,9 +22,10 @@ io.on('connection', (socket) => {
     // socket.broadcast.emit sends event to all, except original requestor
     socket.broadcast.emit('newMessage', generateMessage('Admin', 'A new user has joined'));
 
-    socket.on('createMessage', (message) => {
+    socket.on('createMessage', (message, cb) => {
         // io.emit sends event to all
         io.emit('newMessage', generateMessage(message.from, message.text));
+        cb();
     });
 
     socket.on('createLocationMessage', (coords) => {

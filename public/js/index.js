@@ -9,29 +9,37 @@ socket.on('disconnect', function () {
 });
 
 socket.on('newMessage', function (message) {
-    let newMessage = $('<li></li>');
-    newMessage.text(`${message.from}: ${message.text}`);
-    $('#messages').append(newMessage);
+    let formattedTime = moment(message.createdDate).format('h:mm:ss A');
+    let template = $('#message-template').html();
+    let html = Mustache.render(template, {
+        text: message.text,
+        from: message.from,
+        createdDate: formattedTime
+    });
+
+    $('#messages').append(html);
 });
 
 socket.on('newLocationMessage', function (message) {
-    let li = $('<li></li>');
-    let a = $('<a target="_blank">My current Location</a>');
-    li.text(`${message.from}: `);
-    a.attr('href', message.url);
-    li.append(a);
-    $('#messages').append(li);
+    let formattedTime = moment(message.createdDate).format('h:mm:ss A');
+    let template = $('#message-location-template').html();
+    let html = Mustache.render(template, {
+        from: message.from,
+        url: message.url,
+        createdDate: formattedTime
+    });
+    $('#messages').append(html);
 });
 
 $('#message-form').on('submit', function (e) {
     // Prevents the default behavior (i.e. full page refresh on form submit)
     e.preventDefault();
-
+    let messageTextBox = $('#message');
     socket.emit('createMessage', {
         from: 'User',
-        text: $('#message').val()
+        text: messageTextBox.val()
     }, function () {
-
+        messageTextBox.val('')
     });
 });
 
@@ -41,12 +49,15 @@ locationButton.on('click', function () {
         alert('Geolocation is not supported by your browser');
     }
 
+    locationButton.attr('disabled', 'disabled').text('Sending location...');
     navigator.geolocation.getCurrentPosition(function (position) {
         socket.emit('createLocationMessage', {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
         });
+        locationButton.removeAttr('disabled').text('Send location');
     }, function () {
         alert('Unable to find your current location');
+        locationButton.removeAttr('disabled').text('Send location');
     })
 })
