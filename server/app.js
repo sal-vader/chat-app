@@ -17,6 +17,8 @@ let users = new Users();
 app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
+    socket.emit('newChatRooms', users.getChatRooms());
+
     socket.on('join', (params, cb) => {
         if (!isRealString(params.username) || !isRealString(params.chatRoom)) {
             return cb('Username and Room Name are required');
@@ -40,13 +42,21 @@ io.on('connection', (socket) => {
     })
 
     socket.on('createMessage', (message, cb) => {
-        // io.emit sends event to all
-        io.emit('newMessage', generateMessage(message.from, message.text));
+        let user = users.getUser(socket.id);
+
+        if (user && isRealString(message.text)) {
+            // io.emit sends event to all
+            io.to(user.chatRoom).emit('newMessage', generateMessage(user.username, message.text));
+        }
         cb();
     });
 
     socket.on('createLocationMessage', (coords) => {
-        io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+        let user = users.getUser(socket.id);
+
+        if (user) {
+            io.to(user.chatRoom).emit('newLocationMessage', generateLocationMessage(user.username, coords.latitude, coords.longitude));
+        }
     });
  
     socket.on('disconnect', () => {

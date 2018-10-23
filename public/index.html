@@ -3,8 +3,9 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-        <title>Join | ChatApp</title>
+        <title>Join | ChadApp</title>
         <link rel="stylesheet" href="/css/styles.css" />
+        <link rel="stylesheet" href="/css/awesomplete.css" />
     </head>
 
     <body class="centered-form">
@@ -15,16 +16,20 @@
                 </div>
                 <div class="form-field">
                     <label>Username</label>
-                    <input type="text" name="username" autofocus />
+                    <input type="text" name="username" maxlength="20" autofocus />
                 </div>
                 <div class="form-field">
                     <label>Room Name</label>
-                    <input type="text" name="chatRoom" />
+                    <input id="chat-rooms" name="chatRoom" maxlength="20" placeholder="Press space..." style="padding-right: 20px;" />
                 </div>
                 <div class="form-field">
                     <button>Join</button>
                 </div>
             </form>
         </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/libs/awesomplete.min.js"></script>
+        <script src="/js/index.js"></script>
     </body>
 </html>

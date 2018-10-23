@@ -36,6 +36,14 @@ class Users {
         let namesArr = users.map((user) => user.username);
         return namesArr;
     }
+
+    getChatRooms () {
+        let chatRooms = this.users.map((user) => user.chatRoom);
+        if (chatRooms.length > 0) {
+            return chatRooms.filter((value, index, arr) => arr.indexOf(value) === index);
+        }
+        return ['New Chat Room'];
+    }
 }
 
 module.exports = {Users};
