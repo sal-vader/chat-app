@@ -9,11 +9,24 @@
 
     <body class="chat">
         <div class="chat__sidebar">
-            <h3>Users</h3>
+            <h2 id="sidebar-title"></h2>
             <div id="users"></div>
         </div>
 
         <div class="chat__main">
+            <div class="chat__navbar">
+                <div id="navbar-burger-btn" class="burger-btn" onclick="toggleNavbarMenu();">
+                    <div class="burger-btn-inner-top-mid"></div>
+                    <div class="burger-btn-inner-top-mid"></div>
+                    <div class="burger-btn-inner-top-mid burger-btn-inner-bottom"></div>
+                </div>
+            </div>
+
+            <div id="navbar-menu" class="navbar-menu">
+                <h2 id="navbar-menu-title"></h2>
+                <div id="navbar-users"></div>
+            </div>
+    
             <ol id="messages" class="chat__messages"></ol>
 
             <div class="chat__footer">

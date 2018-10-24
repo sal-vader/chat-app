@@ -16,6 +16,17 @@ function scrollToBottom () {
     }
 }
 
+function toggleNavbarMenu () {
+    let navbarMenu = document.getElementById('navbar-menu');
+    
+    if (navbarMenu.style.height === '75vh') {
+        navbarMenu.style.height = '0vh'
+    }
+    else {
+        navbarMenu.style.height = '75vh';
+    }
+}
+
 socket.on('connect', function () {
     let params = $.deparam(window.location.search);
 
@@ -25,19 +36,23 @@ socket.on('connect', function () {
             window.location.href = '/';
         }
         else {
-
+            $('#navbar-menu-title').text(params.chatRoom);
+            $('#sidebar-title').text(params.chatRoom);
         }
     });
 });
 
 socket.on('updateUserList', function (users) {
     let ol = $('<ol></ol>');
+    let olNavbar = $('<ol></ol>');
 
     users.forEach(function (user) {
         ol.append($('<li></li>').text(user));
+        olNavbar.append($('<li></li>').text(user));
     });
 
     $('#users').html(ol);
+    $('#navbar-users').html(olNavbar);
 });
 
 socket.on('newMessage', function (message) {
