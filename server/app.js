@@ -26,6 +26,9 @@ io.on('connection', (socket) => {
         else if (users.getUserByUsername(params.username)) {
             return cb('Username is already in use');
         }
+        else if (params.username.length > 20 || params.chatRoom.length > 20) {
+            return cb('Username and Chat Room are limited to 20 characters each')
+        }
 
         socket.join(params.chatRoom);
         users.removeUser(socket.id);
