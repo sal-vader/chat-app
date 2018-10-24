@@ -156,7 +156,7 @@ button:disabled {
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
-  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .chat__main {
@@ -170,6 +170,11 @@ button:disabled {
   flex-grow: 1;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+  word-break: break-all;
+}
+
+.message_body p {
+  word-break: break-all;
 }
 
 .chat__footer {
@@ -218,8 +223,8 @@ button:disabled {
   color: #999;
 }
 
-.word-wrap {
-  word-wrap: break-word;
+.break-word {
+  word-break: break-all;
 }
 
 @media (max-width: 600px) {

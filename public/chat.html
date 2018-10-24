@@ -11,7 +11,7 @@
 
     <body class="chat">
         <div class="chat__sidebar">
-            <h2 id="sidebar-title" class="word-wrap"></h2>
+            <h2 id="sidebar-title" class="break-word"></h2>
             <div id="users"></div>
         </div>
 
@@ -25,7 +25,7 @@
             </div>
 
             <div id="navbar-menu" class="navbar-menu">
-                <h2 id="navbar-menu-title" class="word-wrap"></h2>
+                <h2 id="navbar-menu-title" class="break-word"></h2>
                 <div id="navbar-users"></div>
             </div>
     
@@ -33,7 +33,7 @@
 
             <div class="chat__footer">
                 <form id="message-form">
-                    <input id="message" name="message" type="text" placeholder="Type your message" autofocus autocomplete="off" />
+                    <input id="message" name="message" type="text" placeholder="Type your message" autofocus autocomplete="off" maxlength="250" />
                     <button>Send</button>
                 </form>
                 <button id="send-location">Send location</button>

@@ -21,13 +21,13 @@ io.on('connection', (socket) => {
 
     socket.on('join', (params, cb) => {
         if (!isRealString(params.username) || !isRealString(params.chatRoom)) {
-            return cb('Username and Room Name are required');
+            return cb('Username and Room Name are required.');
         }
         else if (users.getUserByUsername(params.username)) {
-            return cb('Username is already in use');
+            return cb('Username is already in use.');
         }
         else if (params.username.length > 20 || params.chatRoom.length > 20) {
-            return cb('Username and Chat Room are limited to 20 characters each')
+            return cb('Username and Chat Room are limited to 20 characters each.')
         }
 
         socket.join(params.chatRoom);
@@ -48,6 +48,9 @@ io.on('connection', (socket) => {
         let user = users.getUser(socket.id);
 
         if (user && isRealString(message.text)) {
+            if (message.text.trim() > 250) {
+                return cb('Chat message length limited to 250 characters.');
+            }
             // io.emit sends event to all
             io.to(user.chatRoom).emit('newMessage', generateMessage(user.username, message.text));
         }
